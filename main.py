@@ -2,12 +2,10 @@ from dotenv import load_dotenv
 from crewai import Agent, Task, Crew
 import os
 
-# Carrega variáveis do .env
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 os.environ["OPENAI_MODEL_NAME"] = os.getenv("OPENAI_MODEL_NAME")
 
-# Agente 1: Estilo e boas práticas
 analista_estilo = Agent(
     role="Analista de Estilo e Boas Práticas Laravel",
     goal="Avaliar se o código PHP segue boas práticas de estilo e Clean Code em projetos Laravel.",
@@ -20,7 +18,6 @@ analista_estilo = Agent(
     verbose=True
 )
 
-# Agente 2: Segurança
 analista_seguranca = Agent(
     role="Especialista em Segurança Laravel",
     goal="Identificar falhas de segurança comuns em código PHP Laravel.",
@@ -32,7 +29,6 @@ analista_seguranca = Agent(
     verbose=True
 )
 
-# Agente 3: Refatoração
 refatorador = Agent(
     role="Consultor de Refatoramento Laravel",
     goal="Sugerir melhorias e refatorar código PHP Laravel para torná-lo mais limpo e eficiente.",
@@ -44,7 +40,6 @@ refatorador = Agent(
     verbose=True
 )
 
-# Agente 4: Editor final do relatório
 editor_relatorio = Agent(
     role="Editor de Revisão de Código",
     goal="Compilar um relatório claro e profissional com todas as análises.",
@@ -56,9 +51,7 @@ editor_relatorio = Agent(
     verbose=True
 )
 
-# Função principal que executa os agentes com base no código e descrição fornecidos
 def rodar_analise(codigo_php: str, descricao: str = "") -> str:
-    # Junta a descrição com o código, se existir
     contexto = f"{descricao.strip()}\n\n{codigo_php}" if descricao else codigo_php
 
     tarefas = [
